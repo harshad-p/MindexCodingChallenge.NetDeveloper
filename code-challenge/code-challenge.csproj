@@ -4,10 +4,9 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>code-challenge</AssemblyName>
     <RootNamespace>challenge</RootNamespace>
-    <Version>1.1.0</Version>
-    <PackageReleaseNotes>Task #1.
-Return 
-the fully filled out ReportingStructure for the specified employeeId.</PackageReleaseNotes>
+    <Version>1.2.0</Version>
+    <PackageReleaseNotes>Task #2.
+Create a new type, Compensation. A Compensation has the following fields: employee, salary, and effectiveDate. Create two new Compensation REST endpoints. One to create and one to read by employeeId. These should persist and query the Compensation from the persistence layer.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
