@@ -7,6 +7,11 @@ namespace challenge.Models
 {
     public class Employee
     {
+        public Employee()
+        {
+            DirectReports = new List<Employee>();
+        }
+
         public String EmployeeId { get; set; }
         public String FirstName { get; set; }
         public String LastName { get; set; }

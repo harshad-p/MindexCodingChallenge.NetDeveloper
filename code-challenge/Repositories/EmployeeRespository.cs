@@ -20,6 +20,11 @@ namespace challenge.Repositories
             _logger = logger;
         }
 
+        public bool Exists(string id)
+        {
+            return _employeeContext.Employees.Any(e => e.EmployeeId == id);
+        }
+
         public Employee Add(Employee employee)
         {
             employee.EmployeeId = Guid.NewGuid().ToString();
@@ -27,9 +32,14 @@ namespace challenge.Repositories
             return employee;
         }
 
-        public Employee GetById(string id)
+        public Employee GetById(string id, bool includeDirectReports = false)
         {
-            return _employeeContext.Employees.SingleOrDefault(e => e.EmployeeId == id);
+            var queryableEmployees = _employeeContext.Employees;
+            if (includeDirectReports)
+            {
+                return queryableEmployees.Include(e => e.DirectReports).SingleOrDefault(e => e.EmployeeId == id);
+            }
+            return queryableEmployees.SingleOrDefault(e => e.EmployeeId == id);
         }
 
         public Task SaveAsync()
