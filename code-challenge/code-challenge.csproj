@@ -4,9 +4,8 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>code-challenge</AssemblyName>
     <RootNamespace>challenge</RootNamespace>
-    <Version>1.2.0</Version>
-    <PackageReleaseNotes>Task #2.
-Create a new type, Compensation. A Compensation has the following fields: employee, salary, and effectiveDate. Create two new Compensation REST endpoints. One to create and one to read by employeeId. These should persist and query the Compensation from the persistence layer.</PackageReleaseNotes>
+    <Version>1.3.0</Version>
+    <PackageReleaseNotes>Now using Exceptions in ReportingStructure Controller to determine the kind of status code returned, similar to Compensation Controller. Updated Unit Test cases accordingly.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using challenge.Models;
+﻿using challenge.Exceptions;
+using challenge.Models;
 using challenge.Repositories;
 using Microsoft.Extensions.Logging;
 using System;
@@ -23,16 +24,17 @@ namespace challenge.Services
         /// and it's direct reports recursively.
         /// </summary>
         /// <param name="employeeId">The Id of the Employee.</param>
-        /// <returns>null: if employee is not found, or in case of an error;
-        /// ReportingStructure: otherwise.</returns>
+        /// <returns>ReportingStructure</returns>
+        /// <exception cref="EmployeeNotFoundException">If employee Id is invalid.</exception>
+        /// <exception cref="Exception">In case of some other error.</exception>
         public ReportingStructure GetByEmployeeId(string employeeId)
         {
             try
             {
-                var exists = _employeeRepository.Exists(employeeId);
-                if(!exists)
+                var employeeExists = _employeeRepository.Exists(employeeId);
+                if (!employeeExists)
                 {
-                    return null;
+                    throw new EmployeeNotFoundException($"Employee [Id: '{employeeId}'] not found.");
                 }
 
                 Employee employee = null;
@@ -63,6 +65,11 @@ namespace challenge.Services
                 var reportingStructure = new ReportingStructure(employee, numberOfReports);
 
                 return reportingStructure;
+            }
+            catch (EmployeeNotFoundException e)
+            {
+                _logger.LogError(e.Message);
+                throw e;
             }
             catch (Exception e)
             {

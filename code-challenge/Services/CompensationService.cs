@@ -36,7 +36,7 @@ namespace challenge.Services
                 var employeeExists = _employeeRepository.Exists(employeeId);
                 if (!employeeExists)
                 {
-                    throw new EmployeeNotFoundException($"Employee [{employeeId}] not found.");
+                    throw new EmployeeNotFoundException($"Employee [Id: '{employeeId}'] not found.");
                 }
 
                 var compensations = _compensationRespository.GetAllForEmployee(employeeId);
@@ -85,7 +85,7 @@ namespace challenge.Services
                 var employeeExists = _employeeRepository.Exists(compensationRequest.EmployeeId);
                 if (!employeeExists)
                 {
-                    throw new EmployeeNotFoundException($"Employee [{compensationRequest.EmployeeId}] not found.");
+                    throw new EmployeeNotFoundException($"Employee [Id: '{compensationRequest.EmployeeId}'] not found.");
                 }
 
                 if (compensationRequest.Salary < 0)

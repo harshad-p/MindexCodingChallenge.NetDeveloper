@@ -95,5 +95,19 @@ namespace code_challenge.Tests.Integration
             Assert.AreEqual(0, reportingStructure.NumberOfReports);
         }
 
+        [TestMethod]
+        public void GetByEmployeeId_Returns_NotFound_InvalidEmpId()
+        {
+            // Arrange
+            var employeeId = "62c1084e-6e34-4630-93fd";
+
+            // Execute
+            var getRequestTask = _httpClient.GetAsync($"api/reportingstructure/{employeeId}");
+            var response = getRequestTask.Result;
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
     }
 }

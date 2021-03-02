@@ -65,7 +65,7 @@ namespace code_challenge.Tests.Integration
         }
 
         [TestMethod]
-        public void Create_Returns_BadRequest_InvalidEmpId()
+        public void Create_Returns_NotFound_InvalidEmpId()
         {
             // Arrange
             var compensationRequest = new CompensationRequest()
@@ -83,7 +83,7 @@ namespace code_challenge.Tests.Integration
             var response = postRequestTask.Result;
 
             // Assert
-            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
 
         [TestMethod]
@@ -128,6 +128,20 @@ namespace code_challenge.Tests.Integration
 
             // Assert
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [TestMethod]
+        public void Get_Returns_NotFound_InvalidEmpId()
+        {
+            // Arrange
+            var employeeId = "16a596ae-edd3-4847-99fe";
+
+            // Execute
+            var getRequestTask = _httpClient.GetAsync($"api/compensation/{employeeId}");
+            var response = getRequestTask.Result;
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
 
         [TestMethod]

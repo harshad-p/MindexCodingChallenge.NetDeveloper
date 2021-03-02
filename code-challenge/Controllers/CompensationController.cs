@@ -35,7 +35,7 @@ namespace challenge.Controllers
             }
             catch (EmployeeNotFoundException e)
             {
-                return StatusCode((int)HttpStatusCode.BadRequest, e.Message);
+                return StatusCode((int)HttpStatusCode.NotFound, e.Message);
             }
             catch (Exception e)
             {
@@ -57,7 +57,7 @@ namespace challenge.Controllers
             }
             catch (EmployeeNotFoundException e)
             {
-                return StatusCode((int)HttpStatusCode.BadRequest, e.Message);
+                return StatusCode((int)HttpStatusCode.NotFound, e.Message);
             }
             catch (SalaryIsLessThanZeroException e)
             {

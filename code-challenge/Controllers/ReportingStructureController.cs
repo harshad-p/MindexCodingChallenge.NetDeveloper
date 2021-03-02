@@ -1,6 +1,9 @@
-﻿using challenge.Services;
+﻿using challenge.Exceptions;
+using challenge.Models;
+using challenge.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Net;
 
 namespace challenge.Controllers
@@ -22,10 +25,19 @@ namespace challenge.Controllers
         {
             _logger.LogDebug($"Received Get Reporting Structure request for Employee [Id: {id}].");
 
-            var reportingStructure = _reportingStructureService.GetByEmployeeId(id);
-            if(reportingStructure == null)
+            ReportingStructure reportingStructure;
+            
+            try
             {
-                StatusCode((int)HttpStatusCode.InternalServerError);
+                reportingStructure = _reportingStructureService.GetByEmployeeId(id);
+            }
+            catch (EmployeeNotFoundException e)
+            {
+                return StatusCode((int)HttpStatusCode.NotFound, e.Message);
+            }
+            catch (Exception e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
 
             return Ok(reportingStructure);
